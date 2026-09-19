@@ -1,0 +1,238 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F172A">
+<title>{% block title %}{{ company.name|default:"Tryvis Investments Limited" }} — Industrial engineering &amp; supply, Tanzania{% endblock %}</title>
+<meta name="description" content="{% block meta_desc %}{{ company.tagline|default:'Bearings, pneumatic systems, seals, tools and hardware, plus an engineering workshop and licensed scrap metal trading, in Tanzania.' }}{% endblock %}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=IBM+Plex+Sans:wght@400;500;600&display=swap"></noscript>
+
+<link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+<link rel="preload" as="image" href="{% static 'core/img/slide-1.svg' %}">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230F172A'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%2338BDF8' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='16' r='4' fill='none' stroke='%23E2E8F0' stroke-width='2'/%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ company.name|default:'Tryvis Investments Limited' }}">
+<meta property="og:description" content="{{ company.tagline|default:'Industrial engineering and supply across Tanzania.' }}">
+{% block head_extra %}{% endblock %}
+</head>
+<body>
+
+{% url 'home' as u_home %}{% url 'about' as u_about %}{% url 'services' as u_services %}{% url 'our_work' as u_work %}{% url 'contact' as u_contact %}
+
+<a href="#main" class="btn btn-primary" style="position:absolute;left:-9999px;top:0;z-index:200" onfocus="this.style.left='12px';this.style.top='12px'" onblur="this.style.left='-9999px'">Skip to content</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="wrap header-row">
+    <a href="{{ u_home }}" class="brand">
+      {% if company.logo %}
+        <img src="{{ company.logo.url }}" alt="{{ company.name }}" class="brand-logo" width="132" height="44">
+      {% else %}
+        <span class="brand-mark" aria-hidden="true"></span>
+      {% endif %}
+      <span class="brand-name">{{ company.name|default:"Tryvis Investments" }}
+        <span class="brand-sub">Engineering &amp; supply</span>
+      </span>
+    </a>
+
+    <nav class="main-nav" aria-label="Main">
+      <a href="{{ u_about }}" {% if request.path == u_about %}class="is-current"{% endif %}>About</a>
+      <a href="{{ u_services }}" {% if request.path == u_services %}class="is-current"{% endif %}>Services</a>
+      <a href="{{ u_work }}" {% if request.path == u_work %}class="is-current"{% endif %}>Our work</a>
+      <a href="{{ u_contact }}" {% if request.path == u_contact %}class="is-current"{% endif %}>Contact</a>
+    </nav>
+
+    <div class="header-cta">
+      {% with first_phone=company.phone_numbers.first %}
+        {% if first_phone %}
+          <a href="tel:{{ first_phone.number }}" class="header-phone">
+            <span>Call the workshop</span>{{ first_phone.number }}
+          </a>
+        {% endif %}
+      {% endwith %}
+      <a href="{{ u_contact }}" class="btn btn-primary">Request a quote</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-controls="drawer" aria-expanded="false">
+        <i></i><i></i><i></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- left-side drawer: opens from the left, GPU transform only -->
+<div class="nav-scrim" id="navScrim" aria-hidden="true"></div>
+<aside class="drawer" id="drawer" aria-label="Menu" aria-hidden="true">
+  <div class="drawer-head">
+    <span class="brand-name">{{ company.name|default:"Tryvis Investments" }}
+      <span class="brand-sub">Dar es Salaam</span>
+    </span>
+    <button class="drawer-close" id="drawerClose" aria-label="Close menu">&times;</button>
+  </div>
+
+  <nav class="drawer-nav" aria-label="Mobile">
+    <a href="{{ u_home }}" {% if request.path == u_home %}class="is-current"{% endif %}>Home<b>What we do, at a glance</b></a>
+    <a href="{{ u_about }}" {% if request.path == u_about %}class="is-current"{% endif %}>About<b>Who we are and how we work</b></a>
+    <a href="{{ u_services }}" {% if request.path == u_services %}class="is-current"{% endif %}>Services<b>Overhaul, repair, supply, fabrication</b></a>
+    <a href="{{ u_work }}" {% if request.path == u_work %}class="is-current"{% endif %}>Our work<b>Jobs from the workshop floor</b></a>
+    <a href="{{ u_contact }}" {% if request.path == u_contact %}class="is-current"{% endif %}>Contact<b>Send us the details of your job</b></a>
+  </nav>
+
+  <div class="drawer-foot">
+    <a href="{{ u_contact }}" class="btn btn-primary">Request a quote</a>
+    {% for phone in company.phone_numbers.all %}
+      <p><a href="tel:{{ phone.number }}">{{ phone.number }}</a>{% if phone.label %} — {{ phone.label }}{% endif %}</p>
+    {% endfor %}
+    <p><a href="mailto:{{ company.email|default:'tryvisinvestment@gmail.com' }}">{{ company.email|default:'tryvisinvestment@gmail.com' }}</a></p>
+    <small>{{ company.address_line|default:'Plot 15, Msigani, Malamba Mawili Street, Dar es Salaam' }}</small>
+  </div>
+</aside>
+
+<main id="main">
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <span class="brand-name">{{ company.name|default:"Tryvis Investments Limited" }}</span>
+      <p>{{ company.tagline|default:"Your trusted partner for industrial supplies and engineering services in Tanzania." }}</p>
+      {% if company.tin %}<span class="footer-tin">TIN {{ company.tin }}</span>{% endif %}
+      {% if company.brela_reg_no %}<span class="footer-tin">BRELA {{ company.brela_reg_no }}</span>{% endif %}
+    </div>
+
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="{{ u_about }}">About us</a></li>
+        <li><a href="{{ u_services }}">Services</a></li>
+        <li><a href="{{ u_work }}">Our work</a></li>
+        <li><a href="{{ u_contact }}">Request a quote</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Capabilities</h4>
+      <ul>
+        <li>Bearings &amp; seals</li>
+        <li>Pneumatic systems</li>
+        <li>Engineering workshop</li>
+        <li>Scrap metal trading</li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Reach us</h4>
+      <p>{{ company.address_line|default:"Plot 15, Msigani, Malamba Mawili Street, Dar es Salaam" }}</p>
+      {% if company.po_box %}<p>{{ company.po_box }}</p>{% endif %}
+      {% for phone in company.phone_numbers.all %}
+        <p><a href="tel:{{ phone.number }}">{{ phone.number }}</a></p>
+      {% endfor %}
+      <p><a href="mailto:{{ company.email|default:'tryvisinvestment@gmail.com' }}">{{ company.email|default:'tryvisinvestment@gmail.com' }}</a></p>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <span>&copy; {% now "Y" %} {{ company.name|default:"Tryvis Investments Limited" }}. Registered in Tanzania.</span>
+    <a class="jt" href="https://www.jamiitek.com" target="_blank" rel="noopener noreferrer" title="Visit JamiiTek — www.jamiitek.com">
+      Designed and built by <span class="jt-name">JamiiTek</span>
+    </a>
+  </div>
+</footer>
+
+{% if company.whatsapp_number %}
+<a class="wa" href="https://wa.me/{{ company.whatsapp_number }}" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35M12.04 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.38 9.38 0 0 1-1.44-5.01c0-5.19 4.23-9.41 9.42-9.41 2.51 0 4.88.98 6.66 2.76a9.35 9.35 0 0 1 2.76 6.66c0 5.19-4.23 9.41-9.43 9.41M20.5 3.49A11.8 11.8 0 0 0 12.04 0C5.46 0 .1 5.35.1 11.92c0 2.1.55 4.15 1.6 5.96L0 24l6.27-1.64a11.9 11.9 0 0 0 5.77 1.47h.01c6.58 0 11.93-5.35 11.94-11.92a11.85 11.85 0 0 0-3.49-8.42"/></svg>
+  <span>WhatsApp</span>
+</a>
+{% endif %}
+
+<script>
+(function(){
+  var doc = document.documentElement;
+  doc.classList.add('js-ready');
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- left drawer ------------------------------------------- */
+  var body = document.body,
+      burger = document.getElementById('burger'),
+      drawer = document.getElementById('drawer'),
+      scrim = document.getElementById('navScrim'),
+      close = document.getElementById('drawerClose');
+
+  function setNav(open){
+    body.classList.toggle('nav-open', open);
+    body.style.overflow = open ? 'hidden' : '';
+    burger.setAttribute('aria-expanded', open);
+    drawer.setAttribute('aria-hidden', !open);
+    if (open) { var f = drawer.querySelector('a'); if (f) f.focus({preventScroll:true}); }
+    else burger.focus({preventScroll:true});
+  }
+  burger.addEventListener('click', function(){ setNav(!body.classList.contains('nav-open')); });
+  close.addEventListener('click', function(){ setNav(false); });
+  scrim.addEventListener('click', function(){ setNav(false); });
+  addEventListener('keydown', function(e){ if (e.key === 'Escape' && body.classList.contains('nav-open')) setNav(false); });
+
+  /* swipe left on the drawer to dismiss */
+  var sx = null;
+  drawer.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
+  drawer.addEventListener('touchmove', function(e){
+    if (sx !== null && sx - e.touches[0].clientX > 62){ sx = null; setNav(false); }
+  }, {passive:true});
+
+  /* ---- header state ------------------------------------------ */
+  var header = document.getElementById('siteHeader'), ticking = false;
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      header.classList.toggle('is-stuck', scrollY > 24);
+      ticking = false;
+    });
+  }
+  addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* ---- hero slider ------------------------------------------- */
+  var slides = document.querySelectorAll('.hero .hero-slide'),
+      dots = document.querySelectorAll('.slide-dots button'),
+      i = 0, timer;
+  if (slides.length > 1){
+    var go = function(n){
+      slides[i].classList.remove('is-active');
+      if (dots[i]) dots[i].classList.remove('is-active');
+      i = (n + slides.length) % slides.length;
+      slides[i].classList.add('is-active');
+      if (dots[i]){
+        var d = dots[i];
+        d.classList.remove('is-active');
+        void d.offsetWidth;          /* restart the fill animation */
+        d.classList.add('is-active');
+      }
+    };
+    var play = function(){ clearInterval(timer); if (!reduce) timer = setInterval(function(){ go(i+1); }, 6000); };
+    Array.prototype.forEach.call(dots, function(d, n){ d.addEventListener('click', function(){ go(n); play(); }); });
+    document.addEventListener('visibilitychange', function(){ document.hidden ? clearInterval(timer) : play(); });
+    play();
+  }
+
+  /* ---- one reveal pass, cheap and one-shot -------------------- */
+  var items = document.querySelectorAll('[data-reveal]');
+  if (!reduce && 'IntersectionObserver' in window && items.length){
+    var io = new IntersectionObserver(function(entries){
+      Array.prototype.forEach.call(entries, function(en){
+        if (en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:.08});
+    Array.prototype.forEach.call(items, function(el){ io.observe(el); });
+  } else {
+    Array.prototype.forEach.call(items, function(el){ el.classList.add('is-in'); });
+  }
+})();
+</script>
+</body>
+</html>

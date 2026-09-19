@@ -1,0 +1,204 @@
+{% extends "core/base.html" %}{% load static %}
+{% block content %}
+
+<section class="hero">
+  <div class="hero-slides" aria-hidden="true">
+    {% if slides %}
+      {% for slide in slides %}
+        <div class="hero-slide{% if forloop.first %} is-active{% endif %}" style="background-image:url('{{ slide.image.url }}')"></div>
+      {% endfor %}
+    {% else %}
+      <div class="hero-slide is-active" style="background-image:url('{% static 'core/img/slide-1.svg' %}')"></div>
+      <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-2.svg' %}')"></div>
+      <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-3.svg' %}')"></div>
+    {% endif %}
+  </div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <p class="label">Industrial supplies &amp; engineering, Tanzania</p>
+      <h1>Your plant, supplied and running.</h1>
+      <p class="hero-lede">Bearings, pneumatic systems, seals, tools and hardware — backed by our own engineering workshop for machining, fabrication and factory audits. <b>Plus licensed scrap metal trading.</b></p>
+      <div class="hero-actions">
+        <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">Request a quote</a>
+        <a href="{% url 'services' %}" class="btn btn-line btn-lg">See what we do</a>
+      </div>
+    </div>
+
+    <div class="hero-foot">
+      <div class="slide-dots" role="tablist" aria-label="Background images">
+        {% if slides %}
+          {% for slide in slides %}
+            <button type="button" class="{% if forloop.first %}is-active{% endif %}" aria-label="Image {{ forloop.counter }}"></button>
+          {% endfor %}
+        {% else %}
+          <button type="button" class="is-active" aria-label="Image 1"></button>
+          <button type="button" aria-label="Image 2"></button>
+          <button type="button" aria-label="Image 3"></button>
+        {% endif %}
+      </div>
+      <div class="hero-marks">
+        <div><b>Dar es Salaam</b> workshop</div>
+        <div><b>BRELA</b> registered</div>
+        <div><b>8</b> bearing brands stocked</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if partners %}
+<section class="strip">
+  <div class="wrap"><p class="strip-note">Our partners and clients</p></div>
+  <div class="marquee">
+    <div class="marquee-track">
+      {% for partner in partners %}
+        <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" class="partner-logo" loading="lazy" decoding="async">
+      {% endfor %}
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      {% for partner in partners %}
+        <img src="{{ partner.logo.url }}" alt="" class="partner-logo" loading="lazy" decoding="async">
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section section--bg">
+  <div class="wrap">
+    <div class="sec-head is-split" data-reveal>
+      <div>
+        <p class="label">What we do</p>
+        <h2>Products to keep, services to call on.</h2>
+      </div>
+      <p class="lede">An extensive inventory of industrial components, an engineering workshop behind it, and a licensed scrap metal trade alongside. Most jobs start with a phone call and a part number — or a photo.</p>
+    </div>
+
+    <div class="svc-index" data-reveal>
+      {% for service in services %}
+      <a class="svc-row" href="{% url 'services' %}">
+        <span class="svc-photo">{% if service.icon_image %}<img src="{{ service.icon_image.url }}" alt="{{ service.title }}" loading="lazy">{% endif %}</span>
+        <span class="svc-text"><h3>{{ service.title }}</h3><p>{{ service.short_description }}</p></span>
+        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
+      </a>
+      {% empty %}
+      <a class="svc-row" href="{% url 'services' %}">
+        <span class="svc-photo"></span>
+        <span class="svc-text"><h3>Bearings</h3><p>Deep groove ball, angular contact, needle roller, tapered roller and self-aligning roller bearings.</p></span>
+        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
+      </a>
+      <a class="svc-row" href="{% url 'services' %}">
+        <span class="svc-photo"></span>
+        <span class="svc-text"><h3>Pneumatic Systems</h3><p>Pneumatic hose, fittings, quick release couplings and pneumatic cylinders.</p></span>
+        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
+      </a>
+      <a class="svc-row" href="{% url 'services' %}">
+        <span class="svc-photo"></span>
+        <span class="svc-text"><h3>Industrial Tools</h3><p>Sockets, wrenches, ratchets, mallets, screwdrivers, pry bars and pullers.</p></span>
+        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
+      </a>
+      <a class="svc-row" href="{% url 'services' %}">
+        <span class="svc-photo"></span>
+        <span class="svc-text"><h3>Engineering Workshop</h3><p>Machining, cardan shaft balancing, welding and fabrication.</p></span>
+        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
+      </a>
+      <a class="svc-row" href="{% url 'services' %}">
+        <span class="svc-photo"></span>
+        <span class="svc-text"><h3>Factory Audits</h3><p>Evaluating production capacity, machinery condition and reliability.</p></span>
+        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
+      </a>
+      <a class="svc-row" href="{% url 'services' %}">
+        <span class="svc-photo"></span>
+        <span class="svc-text"><h3>Buying &amp; Exporting Scrap</h3><p>Collection, recycling, processing and trade of dry steel and scrap metal.</p></span>
+        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
+      </a>
+      {% endfor %}
+    </div>
+    <p style="margin-top:34px"><a href="{% url 'services' %}" class="btn btn-secondary">See the full product &amp; service list</a></p>
+  </div>
+</section>
+
+<section class="stat-band">
+  <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-3.svg' %}')" aria-hidden="true"></div>
+  <div class="wrap section" style="padding-bottom:clamp(50px,7vw,96px)">
+    <div class="on-dark sec-head" data-reveal>
+      <p class="label">Why plants call us</p>
+      <h2>One supplier, fewer calls to make.</h2>
+    </div>
+    <div class="stat-grid" data-reveal>
+      {% for stat in stats %}
+        <div><span class="stat-val">{{ stat.value }}</span><span class="stat-lab">{{ stat.label }}</span></div>
+      {% empty %}
+        <div><span class="stat-val">2022</span><span class="stat-lab">Registered in Tanzania since</span></div>
+        <div><span class="stat-val">15</span><span class="stat-lab">Product and service lines</span></div>
+        <div><span class="stat-val">8</span><span class="stat-lab">Global bearing brands stocked</span></div>
+        <div><span class="stat-val">Licensed</span><span class="stat-lab">BRELA registered &amp; municipal licensed</span></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section--white">
+  <div class="wrap">
+    <div class="sec-head is-split" data-reveal>
+      <div>
+        <p class="label">Recent work</p>
+        <h2>From the workshop floor.</h2>
+      </div>
+      <p class="lede">Machining, panel work and fabrication carried out by our own team.</p>
+    </div>
+
+    <div class="gallery" data-reveal>
+      {% for item in gallery %}
+        <figure>
+          <img src="{{ item.image.url }}" alt="{{ item.title|default:'Workshop photograph' }}" loading="lazy" decoding="async">
+          {% if item.title %}<figcaption>{{ item.title }}</figcaption>{% endif %}
+        </figure>
+      {% empty %}
+        <figure class="is-empty"><span>Add workshop photos in the site manager to fill this gallery</span></figure>
+        <figure class="is-empty"><span>Workshop</span></figure>
+        <figure class="is-empty"><span>Fabrication</span></figure>
+      {% endfor %}
+    </div>
+
+    <p style="margin-top:34px"><a href="{% url 'our_work' %}" class="btn btn-secondary">See the full gallery</a></p>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap split">
+    <div class="split-aside" data-reveal>
+      <p class="label">How we work</p>
+      <h2>Supplied, machined, or traded.</h2>
+      <p class="lede">Three ways we keep industry moving.</p>
+    </div>
+    <div data-reveal>
+      <div class="vmv" style="margin-top:0">
+        <div>
+          <h3>Supply what you need</h3>
+          <p>An extensive inventory of bearings, pneumatic components, seals, gaskets, tools and hardware — from our own stock.</p>
+        </div>
+        <div>
+          <h3>Build what your plant needs</h3>
+          <p>Our engineering workshop handles machining, cardan shaft balancing, welding and fabrication, plus factory audits and hot &amp; cold insulation.</p>
+        </div>
+        <div>
+          <h3>Clear what your site doesn't</h3>
+          <p>Licensed to buy and export dry steel and scrap — fast pick-up, fair pricing, full regulatory compliance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section cta">
+  <div class="wrap">
+    <div>
+      <h2>Tell us what you need.</h2>
+      <p>Send the part number, a photo, or just describe the job. We will come back with a quote and a realistic timeline.</p>
+    </div>
+    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">Request a quote</a>
+  </div>
+</section>
+
+{% endblock %}

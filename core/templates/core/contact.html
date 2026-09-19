@@ -1,0 +1,88 @@
+{% extends "core/base.html" %}{% load static %}
+{% block title %}Request a quote — {{ company.name|default:"Tryvis Investments Limited" }}{% endblock %}
+{% block meta_desc %}Send Tryvis Investments Limited the details of your job — parts, an overhaul, or a full engineering project — and receive a quote.{% endblock %}
+{% block content %}
+
+<section class="page-hero on-dark">
+  <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-1.svg' %}')" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="crumb"><a href="{% url 'home' %}">Home</a><i></i><span>Contact</span></p>
+    <p class="label">Get in touch</p>
+    <h1>Tell us what your line needs.</h1>
+    <p class="lede">Parts, a repair, or a full engineering project — send the details and we will come back with a quote.</p>
+  </div>
+</section>
+
+<section class="section section--bg">
+  <div class="wrap contact-grid">
+    <div data-reveal>
+      <p class="label">Contact details</p>
+      <h2>{{ company.name|default:"Tryvis Investments Limited" }}</h2>
+
+      <div class="contact-lines">
+        <div>
+          <span class="k">Workshop</span>
+          <span class="v">{{ company.address_line|default:"Plot 15, Msigani, Malamba Mawili Street, Dar es Salaam" }}
+            {% if company.po_box %}<small>{{ company.po_box }}</small>{% endif %}
+          </span>
+        </div>
+        {% for phone in company.phone_numbers.all %}
+        <div>
+          <span class="k">{{ phone.label|default:"Phone" }}</span>
+          <span class="v"><a href="tel:{{ phone.number }}">{{ phone.number }}</a></span>
+        </div>
+        {% empty %}
+        <div>
+          <span class="k">Phone</span>
+          <span class="v"><a href="tel:+255793555702">+255 793 555 702</a></span>
+        </div>
+        {% endfor %}
+        <div>
+          <span class="k">Email</span>
+          <span class="v"><a href="mailto:{{ company.email|default:'tryvisinvestment@gmail.com' }}">{{ company.email|default:'tryvisinvestment@gmail.com' }}</a></span>
+        </div>
+        {% if company.tin %}
+        <div>
+          <span class="k">TIN</span>
+          <span class="v">{{ company.tin }}</span>
+        </div>
+        {% endif %}
+        {% if company.brela_reg_no %}
+        <div>
+          <span class="k">BRELA No.</span>
+          <span class="v">{{ company.brela_reg_no }}</span>
+        </div>
+        {% endif %}
+        {% if company.business_license_no %}
+        <div>
+          <span class="k">Licence</span>
+          <span class="v">{{ company.business_license_no }}</span>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <form method="post" class="form" data-reveal>
+      {% csrf_token %}
+      <h3>Request a quote</h3>
+      <p>The more detail you send, the faster the quote comes back.</p>
+
+      {% if messages %}
+        {% for message in messages %}<p class="form-note">{{ message }}</p>{% endfor %}
+      {% endif %}
+
+      <div class="form-2">
+        <label>Your name<input type="text" name="name" required autocomplete="name" placeholder="Full name"></label>
+        <label>Company<input type="text" name="company_name" autocomplete="organization" placeholder="Plant or company"></label>
+      </div>
+      <div class="form-2">
+        <label>Phone<input type="tel" name="phone" autocomplete="tel" placeholder="+255 ..."></label>
+        <label>Email<input type="email" name="email" autocomplete="email" placeholder="name@company.co.tz"></label>
+      </div>
+      <label>What do you need?<textarea name="message" rows="5" required placeholder="Machine, part number, or a short description of the fault"></textarea></label>
+      <button type="submit" class="btn btn-primary">Send message</button>
+    </form>
+  </div>
+</section>
+
+{% endblock %}

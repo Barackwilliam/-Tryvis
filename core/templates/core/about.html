@@ -1,0 +1,89 @@
+{% extends "core/base.html" %}{% load static %}
+{% block title %}About — {{ company.name|default:"Tryvis Investments Limited" }}{% endblock %}
+{% block meta_desc %}Tryvis Investments Limited — industrial supplies and engineering services in Tanzania since 2022. BRELA registered and municipal licensed.{% endblock %}
+{% block content %}
+
+<section class="page-hero on-dark">
+  <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-3.svg' %}')" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="crumb"><a href="{% url 'home' %}">Home</a><i></i><span>About</span></p>
+    <p class="label">The company</p>
+    <h1>Industrial supplies and engineering, under one roof.</h1>
+    <p class="lede">Operating in Dar es Salaam and beyond since 2022 — a registered wholesaler and licensed scrap metal trader.</p>
+  </div>
+</section>
+
+<section class="section section--bg">
+  <div class="wrap split">
+    <div class="split-aside" data-reveal>
+      <p class="label">Who we are</p>
+      <h2>{{ company.name|default:"Tryvis Investments Limited" }}</h2>
+    </div>
+    <div data-reveal>
+      {% if company.about %}
+        {{ company.about|linebreaks }}
+      {% else %}
+        <p>Established in 2022, Tryvis Investments Limited is your trusted partner for a wide range of industrial supplies and engineering services in Tanzania, Dar es Salaam area and beyond. As a versatile wholesaler, we provide an extensive inventory of bearings, pneumatic tools, and other essential components. Our expertise extends to professional services including fabrication engineering, machine workshop operations, and insulation contracting. We also specialize in air-conditioning services, ensuring we meet diverse industrial and mechanical needs with exceptional skill and reliability.</p>
+        <p>We are also a Tanzania buyer, and primarily engage in the import and export business of products. We provide reliable support for cross-border trade decision-making.</p>
+      {% endif %}
+
+      <div class="vmv">
+        <div>
+          <h3>Vision</h3>
+          <p>{{ company.vision|default:"To be the preeminent independent supplier of choice recognized by our customers as the best in total satisfaction and value." }}</p>
+        </div>
+        <div>
+          <h3>Mission</h3>
+          <p>{{ company.mission|default:"To achieve the highest level of customer satisfaction by providing quality products and services in time and at competitive costs." }}</p>
+        </div>
+        <div>
+          <h3>Values</h3>
+          <p>{{ company.values|default:"We listen, we care, and we continue to uphold." }}</p>
+        </div>
+      </div>
+
+      {% if company.brela_reg_no or company.business_license_no or company.tin %}
+      <div class="reg-strip">
+        <p class="reg-strip-label">Registered &amp; licensed</p>
+        <div class="reg-strip-row">
+          {% if company.brela_reg_no %}<span><b>BRELA Certificate of Incorporation</b> No. {{ company.brela_reg_no }}</span>{% endif %}
+          {% if company.tin %}<span><b>TIN</b> {{ company.tin }}</span>{% endif %}
+          {% if company.business_license_no %}<span><b>Business Licence</b> {{ company.business_license_no }}</span>{% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="stat-band">
+  <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-1.svg' %}')" aria-hidden="true"></div>
+  <div class="wrap section">
+    <div class="on-dark sec-head" data-reveal>
+      <p class="label">In short</p>
+      <h2>What the numbers say.</h2>
+    </div>
+    <div class="stat-grid" data-reveal>
+      {% for stat in stats %}
+        <div><span class="stat-val">{{ stat.value }}</span><span class="stat-lab">{{ stat.label }}</span></div>
+      {% empty %}
+        <div><span class="stat-val">2022</span><span class="stat-lab">Registered in Tanzania since</span></div>
+        <div><span class="stat-val">15</span><span class="stat-lab">Product and service lines</span></div>
+        <div><span class="stat-val">8</span><span class="stat-lab">Global bearing brands stocked</span></div>
+        <div><span class="stat-val">Licensed</span><span class="stat-lab">BRELA registered &amp; municipal licensed</span></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section cta">
+  <div class="wrap">
+    <div>
+      <h2>Ready to talk about your project?</h2>
+      <p>Tell us about the part, the job, or the load of scrap — we will take it from there.</p>
+    </div>
+    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">Request a quote</a>
+  </div>
+</section>
+
+{% endblock %}

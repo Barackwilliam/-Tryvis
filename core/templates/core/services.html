@@ -1,0 +1,92 @@
+{% extends "core/base.html" %}{% load static %}
+{% block title %}Products & Services — {{ company.name|default:"Tryvis Investments Limited" }}{% endblock %}
+{% block meta_desc %}Bearings, pneumatic systems, pressure gauges, industrial tools, seals, gaskets and hardware, plus an engineering workshop, factory audits and scrap metal trading — Tryvis Investments Limited, Tanzania.{% endblock %}
+{% block content %}
+
+<section class="page-hero on-dark">
+  <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-1.svg' %}')" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="crumb"><a href="{% url 'home' %}">Home</a><i></i><span>Products &amp; Services</span></p>
+    <p class="label">What we do</p>
+    <h1>Industrial supply and engineering, end to end.</h1>
+    <p class="lede">From a single O-ring to a fully equipped engineering workshop — one team, one point of contact, one invoice.</p>
+  </div>
+</section>
+
+<section class="section section--bg">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="label">Products we supply</p>
+      <h2>Bearings, pneumatics, seals, tools and hardware.</h2>
+    </div>
+
+    <div class="svc-index" data-reveal>
+      {% for item in products %}
+      <div class="svc-row">
+        <span class="svc-photo">{% if item.icon_image %}<img src="{{ item.icon_image.url }}" alt="{{ item.title }}" loading="lazy">{% endif %}</span>
+        <span class="svc-text"><h3>{{ item.title }}</h3><p>{{ item.short_description }}</p></span>
+        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
+      </div>
+      {% empty %}
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Bearings</h3><p>Deep groove ball bearings, angular contact bearings, needle roller, tapered roller, cylindrical roller and self-aligning roller bearings.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Pneumatic Systems</h3><p>Pneumatic hose, fittings, quick release couplings, air hose pipes and pneumatic cylinders.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Pressure Gauges</h3><p>Utility, stainless steel, vibration-proof and low pressure capsule pressure gauges.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Industrial Tools</h3><p>Sockets, wrenches, ratchets, mallets, screwdrivers, pry bars and pullers.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Mechanical Seals</h3><p>Seals built to withstand a wide range of media, pressure and temperature.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Oil Seals</h3><p>Single lip, double lip and spring-loaded seals — standardized to customized.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Fasteners</h3><p>Hardware components to temporarily or permanently secure two or more parts together.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>O-Rings</h3><p>Over 10,000 models — Nitrile, Viton, EPDM, Silicone and HNBR.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>SMS Union Gaskets</h3><p>Hygienic seals for dairy, food, beverage and pharmaceutical processing lines.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Industrial Cleaning &amp; Sanitary Equipment</h3><p>Heavy-duty machinery and hygienic systems for factories and processing plants.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Hardware</h3><p>Cutting discs, steel pipes and general site hardware.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      {% endfor %}
+    </div>
+
+    {% if brands %}
+    <div class="brand-strip" data-reveal>
+      <p class="brand-strip-label">Bearing brands we stock</p>
+      <div class="brand-strip-row">
+        {% for brand in brands %}
+          <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" loading="lazy">
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="sec-head" data-reveal>
+      <p class="label">Services we offer</p>
+      <h2>Engineering, audits and scrap metal trading.</h2>
+    </div>
+
+    <div class="svc-index" data-reveal>
+      {% for item in services_list %}
+      <div class="svc-row">
+        <span class="svc-photo">{% if item.icon_image %}<img src="{{ item.icon_image.url }}" alt="{{ item.title }}" loading="lazy">{% endif %}</span>
+        <span class="svc-text"><h3>{{ item.title }}</h3><p>{{ item.description|default:item.short_description }}</p></span>
+        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
+      </div>
+      {% empty %}
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Engineering Workshop</h3><p>Machining, cardan shaft balancing, welding and fabrication.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Hot and Cold Insulation</h3><p>Thermal barriers that control heat transfer and protect equipment.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Factory Audits</h3><p>Systematic evaluation of a plant's production capacity, machinery and reliability.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      <div class="svc-row"><span class="svc-photo"></span><span class="svc-text"><h3>Buying and Exporting Dry Steel and Scrap</h3><p>Collection, recycling, processing and trade of metals.</p></span><span class="svc-mark" aria-hidden="true">&rsaquo;</span></div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section cta">
+  <div class="wrap">
+    <div>
+      <h2>Not sure which of these you need?</h2>
+      <p>Describe the part or the job and we will tell you what it takes.</p>
+    </div>
+    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">Request a quote</a>
+  </div>
+</section>
+
+{% endblock %}
