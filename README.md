@@ -134,6 +134,22 @@ This repo includes `build.sh` and `Procfile` for Render:
 - Start command: `gunicorn config.wsgi`
 - Add all `.env.example` variables as Render environment variables.
 
+**Python version**: a `.python-version` file pins the build to Python 3.12.
+Without it, Render uses whatever the newest available Python is at the time
+your service was created — a brand-new Python release can ship before
+Django has added official support for it, which is exactly what happened
+here: Render built this service on Python 3.14, and Django 5.1 doesn't
+support 3.14 yet. That mismatch breaks an internal trick Django's template
+engine uses (`copy()` on a `super()` object in `django/template/context.py`),
+which is what threw `'super' object has no attribute 'dicts'` on the
+`/admin/` pages that use a changelist (e.g. Hero slides). It isn't a bug in
+this project's code — it's a Python/Django version mismatch.
+
+If you see that error again after adding `.python-version`, the fix hasn't
+taken effect yet because Render cached the old build environment. On the
+Render dashboard: **Manual Deploy → Clear build cache & deploy**. A normal
+deploy without clearing the cache may keep using the old Python install.
+
 ## Design
 
 Identity: **Navy + Electric Blue + White** — a corporate system where blue is
@@ -180,4 +196,3 @@ hierarchy — hero display, h1 page title, h2 section title, h3 card title,
   around 10KB each.
 - **Footer credit** — "Designed and built by JamiiTek" links to
   <https://www.jamiitek.com>.
-"# -Tryvis" 
