@@ -16,12 +16,12 @@
 
   <div class="wrap hero-inner">
     <div class="hero-copy">
-      <p class="label">Industrial supplies &amp; engineering, Tanzania</p>
-      <h1>Your plant, supplied and running.</h1>
-      <p class="hero-lede">Bearings, pneumatic systems, seals, tools and hardware — backed by our own engineering workshop for machining, fabrication and factory audits. <b>Plus licensed scrap metal trading.</b></p>
+      <p class="label">{{ site_text.home_hero_eyebrow|default:"Industrial supplies and engineering, Tanzania" }}</p>
+      <h1>{{ site_text.home_hero_h1|default:"Your plant, supplied and running." }}</h1>
+      <p class="hero-lede">{{ site_text.home_hero_lede|default:"Bearings, pneumatic systems, seals, tools and hardware — backed by our own engineering workshop for machining, fabrication and factory audits. <b>Plus licensed scrap metal trading.</b>"|safe }}</p>
       <div class="hero-actions">
-        <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">Request a quote</a>
-        <a href="{% url 'services' %}" class="btn btn-line btn-lg">See what we do</a>
+        <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">{{ site_text.cta_button_label|default:"Request a quote" }}</a>
+        <a href="{% url 'services' %}" class="btn btn-line btn-lg">{{ site_text.home_hero_secondary_cta|default:"See what we do" }}</a>
       </div>
     </div>
 
@@ -38,9 +38,9 @@
         {% endif %}
       </div>
       <div class="hero-marks">
-        <div><b>Dar es Salaam</b> workshop</div>
-        <div><b>BRELA</b> registered</div>
-        <div><b>8</b> bearing brands stocked</div>
+        <div>{{ site_text.home_hero_mark_1|default:"<b>Dar es Salaam</b> workshop"|safe }}</div>
+        <div>{{ site_text.home_hero_mark_2|default:"<b>BRELA</b> registered"|safe }}</div>
+        <div>{{ site_text.home_hero_mark_3|default:"<b>8</b> bearing brands stocked"|safe }}</div>
       </div>
     </div>
   </div>
@@ -48,7 +48,7 @@
 
 {% if partners %}
 <section class="strip">
-  <div class="wrap"><p class="strip-note">Our partners and clients</p></div>
+  <div class="wrap"><p class="strip-note">{{ site_text.home_partners_label|default:"Our partners and clients" }}</p></div>
   <div class="marquee">
     <div class="marquee-track">
       {% for partner in partners %}
@@ -68,10 +68,10 @@
   <div class="wrap">
     <div class="sec-head is-split" data-reveal>
       <div>
-        <p class="label">What we do</p>
-        <h2>Products to keep, services to call on.</h2>
+        <p class="label">{{ site_text.home_whatwedo_eyebrow|default:"What we do" }}</p>
+        <h2>{{ site_text.home_whatwedo_h2|default:"Products to keep, services to call on." }}</h2>
       </div>
-      <p class="lede">An extensive inventory of industrial components, an engineering workshop behind it, and a licensed scrap metal trade alongside. Most jobs start with a phone call and a part number — or a photo.</p>
+      <p class="lede">{{ site_text.home_whatwedo_lede|default:"An extensive inventory of industrial components, an engineering workshop behind it, and a licensed scrap metal trade alongside. Most jobs start with a phone call and a part number — or a photo." }}</p>
     </div>
 
     <div class="svc-index" data-reveal>
@@ -87,34 +87,9 @@
         <span class="svc-text"><h3>Bearings</h3><p>Deep groove ball, angular contact, needle roller, tapered roller and self-aligning roller bearings.</p></span>
         <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
       </a>
-      <a class="svc-row" href="{% url 'services' %}">
-        <span class="svc-photo"></span>
-        <span class="svc-text"><h3>Pneumatic Systems</h3><p>Pneumatic hose, fittings, quick release couplings and pneumatic cylinders.</p></span>
-        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
-      </a>
-      <a class="svc-row" href="{% url 'services' %}">
-        <span class="svc-photo"></span>
-        <span class="svc-text"><h3>Industrial Tools</h3><p>Sockets, wrenches, ratchets, mallets, screwdrivers, pry bars and pullers.</p></span>
-        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
-      </a>
-      <a class="svc-row" href="{% url 'services' %}">
-        <span class="svc-photo"></span>
-        <span class="svc-text"><h3>Engineering Workshop</h3><p>Machining, cardan shaft balancing, welding and fabrication.</p></span>
-        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
-      </a>
-      <a class="svc-row" href="{% url 'services' %}">
-        <span class="svc-photo"></span>
-        <span class="svc-text"><h3>Factory Audits</h3><p>Evaluating production capacity, machinery condition and reliability.</p></span>
-        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
-      </a>
-      <a class="svc-row" href="{% url 'services' %}">
-        <span class="svc-photo"></span>
-        <span class="svc-text"><h3>Buying &amp; Exporting Scrap</h3><p>Collection, recycling, processing and trade of dry steel and scrap metal.</p></span>
-        <span class="svc-mark" aria-hidden="true">&rsaquo;</span>
-      </a>
       {% endfor %}
     </div>
-    <p style="margin-top:34px"><a href="{% url 'services' %}" class="btn btn-secondary">See the full product &amp; service list</a></p>
+    <p style="margin-top:34px"><a href="{% url 'services' %}" class="btn btn-secondary">{{ site_text.home_services_more_label|default:"See the full product and service list" }}</a></p>
   </div>
 </section>
 
@@ -122,8 +97,8 @@
   <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-3.svg' %}')" aria-hidden="true"></div>
   <div class="wrap section" style="padding-bottom:clamp(50px,7vw,96px)">
     <div class="on-dark sec-head" data-reveal>
-      <p class="label">Why plants call us</p>
-      <h2>One supplier, fewer calls to make.</h2>
+      <p class="label">{{ site_text.home_stat_eyebrow|default:"Why plants call us" }}</p>
+      <h2>{{ site_text.home_stat_h2|default:"One supplier, fewer calls to make." }}</h2>
     </div>
     <div class="stat-grid" data-reveal>
       {% for stat in stats %}
@@ -142,10 +117,10 @@
   <div class="wrap">
     <div class="sec-head is-split" data-reveal>
       <div>
-        <p class="label">Recent work</p>
-        <h2>From the workshop floor.</h2>
+        <p class="label">{{ site_text.home_recentwork_eyebrow|default:"Recent work" }}</p>
+        <h2>{{ site_text.home_recentwork_h2|default:"From the workshop floor." }}</h2>
       </div>
-      <p class="lede">Machining, panel work and fabrication carried out by our own team.</p>
+      <p class="lede">{{ site_text.home_recentwork_lede|default:"Machining, panel work and fabrication carried out by our own team." }}</p>
     </div>
 
     <div class="gallery" data-reveal>
@@ -161,30 +136,30 @@
       {% endfor %}
     </div>
 
-    <p style="margin-top:34px"><a href="{% url 'our_work' %}" class="btn btn-secondary">See the full gallery</a></p>
+    <p style="margin-top:34px"><a href="{% url 'our_work' %}" class="btn btn-secondary">{{ site_text.home_gallery_more_label|default:"See the full gallery" }}</a></p>
   </div>
 </section>
 
 <section class="section section--tint">
   <div class="wrap split">
     <div class="split-aside" data-reveal>
-      <p class="label">How we work</p>
-      <h2>Supplied, machined, or traded.</h2>
-      <p class="lede">Three ways we keep industry moving.</p>
+      <p class="label">{{ site_text.home_howwework_eyebrow|default:"How we work" }}</p>
+      <h2>{{ site_text.home_howwework_h2|default:"Supplied, machined, or traded." }}</h2>
+      <p class="lede">{{ site_text.home_howwework_lede|default:"Three ways we keep industry moving." }}</p>
     </div>
     <div data-reveal>
       <div class="vmv" style="margin-top:0">
         <div>
-          <h3>Supply what you need</h3>
-          <p>An extensive inventory of bearings, pneumatic components, seals, gaskets, tools and hardware — from our own stock.</p>
+          <h3>{{ site_text.home_how1_title|default:"Supply what you need" }}</h3>
+          <p>{{ site_text.home_how1_body|default:"An extensive inventory of bearings, pneumatic components, seals, gaskets, tools and hardware — from our own stock." }}</p>
         </div>
         <div>
-          <h3>Build what your plant needs</h3>
-          <p>Our engineering workshop handles machining, cardan shaft balancing, welding and fabrication, plus factory audits and hot &amp; cold insulation.</p>
+          <h3>{{ site_text.home_how2_title|default:"Build what your plant needs" }}</h3>
+          <p>{{ site_text.home_how2_body|default:"Our engineering workshop handles machining, cardan shaft balancing, welding and fabrication, plus factory audits and hot and cold insulation." }}</p>
         </div>
         <div>
-          <h3>Clear what your site doesn't</h3>
-          <p>Licensed to buy and export dry steel and scrap — fast pick-up, fair pricing, full regulatory compliance.</p>
+          <h3>{{ site_text.home_how3_title|default:"Clear what your site doesn't" }}</h3>
+          <p>{{ site_text.home_how3_body|default:"Licensed to buy and export dry steel and scrap — fast pick-up, fair pricing, full regulatory compliance." }}</p>
         </div>
       </div>
     </div>
@@ -194,10 +169,10 @@
 <section class="section cta">
   <div class="wrap">
     <div>
-      <h2>Tell us what you need.</h2>
-      <p>Send the part number, a photo, or just describe the job. We will come back with a quote and a realistic timeline.</p>
+      <h2>{{ site_text.home_cta_h2|default:"Tell us what you need." }}</h2>
+      <p>{{ site_text.home_cta_body|default:"Send the part number, a photo, or just describe the job. We will come back with a quote and a realistic timeline." }}</p>
     </div>
-    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">Request a quote</a>
+    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">{{ site_text.cta_button_label|default:"Request a quote" }}</a>
   </div>
 </section>
 

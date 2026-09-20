@@ -37,7 +37,7 @@
         <span class="brand-mark" aria-hidden="true"></span>
       {% endif %}
       <span class="brand-name">{{ company.name|default:"Tryvis Investments" }}
-        <span class="brand-sub">Engineering &amp; supply</span>
+        <span class="brand-sub">{{ site_text.brand_subtitle|default:"Engineering and supply" }}</span>
       </span>
     </a>
 
@@ -56,7 +56,7 @@
           </a>
         {% endif %}
       {% endwith %}
-      <a href="{{ u_contact }}" class="btn btn-primary">Request a quote</a>
+      <a href="{{ u_contact }}" class="btn btn-primary">{{ site_text.cta_button_label|default:"Request a quote" }}</a>
       <button class="burger" id="burger" aria-label="Open menu" aria-controls="drawer" aria-expanded="false">
         <i></i><i></i><i></i>
       </button>
@@ -83,7 +83,7 @@
   </nav>
 
   <div class="drawer-foot">
-    <a href="{{ u_contact }}" class="btn btn-primary">Request a quote</a>
+    <a href="{{ u_contact }}" class="btn btn-primary">{{ site_text.cta_button_label|default:"Request a quote" }}</a>
     {% for phone in company.phone_numbers.all %}
       <p><a href="tel:{{ phone.number }}">{{ phone.number }}</a>{% if phone.label %} — {{ phone.label }}{% endif %}</p>
     {% endfor %}
@@ -111,17 +111,21 @@
         <li><a href="{{ u_about }}">About us</a></li>
         <li><a href="{{ u_services }}">Services</a></li>
         <li><a href="{{ u_work }}">Our work</a></li>
-        <li><a href="{{ u_contact }}">Request a quote</a></li>
+        <li><a href="{{ u_contact }}">{{ site_text.cta_button_label|default:"Request a quote" }}</a></li>
       </ul>
     </div>
 
     <div>
-      <h4>Capabilities</h4>
+      <h4>{{ site_text.footer_capabilities_heading|default:"Capabilities" }}</h4>
       <ul>
-        <li>Bearings &amp; seals</li>
-        <li>Pneumatic systems</li>
-        <li>Engineering workshop</li>
-        <li>Scrap metal trading</li>
+        {% for s in featured_services|slice:":4" %}
+          <li><a href="{{ u_services }}">{{ s.title }}</a></li>
+        {% empty %}
+          <li>Bearings &amp; seals</li>
+          <li>Pneumatic systems</li>
+          <li>Engineering workshop</li>
+          <li>Scrap metal trading</li>
+        {% endfor %}
       </ul>
     </div>
 

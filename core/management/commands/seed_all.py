@@ -88,6 +88,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         call_command('seed_company')
+        call_command('seed_site_text')
 
         if options['force']:
             Brand.objects.all().delete()

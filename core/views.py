@@ -12,6 +12,7 @@ def _shared():
     return {
         'slides': HeroSlide.objects.filter(is_active=True),
         'partners': Partner.objects.all(),
+        'featured_services': ServiceCategory.objects.filter(is_featured=True),
     }
 
 

@@ -3,7 +3,7 @@ from django.utils.html import format_html
 
 from .models import (
     CompanyInfo, PhoneNumber, ServiceCategory, GalleryImage,
-    Partner, ContactMessage, HeroSlide, Stat, Brand,
+    Partner, ContactMessage, HeroSlide, Stat, Brand, SiteText,
 )
 
 admin.site.site_header = 'Tryvis Investments — site manager'
@@ -79,6 +79,18 @@ class GalleryImageAdmin(admin.ModelAdmin):
 class PartnerAdmin(admin.ModelAdmin):
     list_display = ('name', 'order')
     list_editable = ('order',)
+
+
+@admin.register(SiteText)
+class SiteTextAdmin(admin.ModelAdmin):
+    list_display = ('label', 'key', 'value_preview')
+    search_fields = ('label', 'key', 'value')
+    ordering = ('key',)
+
+    @admin.display(description='Current text')
+    def value_preview(self, obj):
+        text = obj.value
+        return text if len(text) <= 80 else text[:77] + '...'
 
 
 @admin.register(ContactMessage)

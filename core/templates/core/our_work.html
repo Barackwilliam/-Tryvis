@@ -7,9 +7,9 @@
   <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-2.svg' %}')" aria-hidden="true"></div>
   <div class="wrap">
     <p class="crumb"><a href="{% url 'home' %}">Home</a><i></i><span>Our work</span></p>
-    <p class="label">Recent work</p>
-    <h1>From the workshop floor.</h1>
-    <p class="lede">Overhauls, fabrication and repairs completed on site and in our workshop for clients across Tanzania.</p>
+    <p class="label">{{ site_text.work_hero_eyebrow|default:"Recent work" }}</p>
+    <h1>{{ site_text.work_hero_h1|default:"From the workshop floor." }}</h1>
+    <p class="lede">{{ site_text.work_hero_lede|default:"Overhauls, fabrication and repairs completed on site and in our workshop for clients across Tanzania." }}</p>
   </div>
 </section>
 
@@ -32,7 +32,7 @@
 
 {% if partners %}
 <section class="strip">
-  <div class="wrap"><p class="strip-note">Partners and clients we have worked with</p></div>
+  <div class="wrap"><p class="strip-note">{{ site_text.work_partners_label|default:"Partners and clients we have worked with" }}</p></div>
   <div class="marquee">
     <div class="marquee-track">
       {% for partner in partners %}
@@ -51,10 +51,10 @@
 <section class="section cta">
   <div class="wrap">
     <div>
-      <h2>Let's talk about your next job.</h2>
-      <p>Send us the details and we will come back with a quote and a realistic timeline.</p>
+      <h2>{{ site_text.work_cta_h2|default:"Let's talk about your next job." }}</h2>
+      <p>{{ site_text.work_cta_body|default:"Send us the details and we will come back with a quote and a realistic timeline." }}</p>
     </div>
-    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">Request a quote</a>
+    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">{{ site_text.cta_button_label|default:"Request a quote" }}</a>
   </div>
 </section>
 

@@ -77,6 +77,29 @@ class Brand(models.Model):
         return self.name
 
 
+class SiteText(models.Model):
+    """A single piece of editable copy — a headline, an intro paragraph, a
+    button label — shown somewhere on the site. This is what lets nearly
+    every word on the site be changed from /admin/ without touching code.
+
+    `key` is what the templates look for and must not be changed once in
+    use. `label` and `help_text` are only shown here in the admin, to say
+    where on the site this text appears. A short snippet of bold text is
+    fine to type directly, e.g. <b>like this</b>.
+    """
+    key = models.SlugField(max_length=80, unique=True)
+    label = models.CharField(max_length=150, help_text='Where this text appears on the site — shown only in admin.')
+    value = models.TextField()
+
+    class Meta:
+        ordering = ['key']
+        verbose_name = 'Site text'
+        verbose_name_plural = 'Site text'
+
+    def __str__(self):
+        return self.label
+
+
 class GalleryImage(models.Model):
     CATEGORY_CHOICES = [
         ('workshop', 'Workshop / Machine Works'),

@@ -7,16 +7,16 @@
   <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-3.svg' %}')" aria-hidden="true"></div>
   <div class="wrap">
     <p class="crumb"><a href="{% url 'home' %}">Home</a><i></i><span>About</span></p>
-    <p class="label">The company</p>
-    <h1>Industrial supplies and engineering, under one roof.</h1>
-    <p class="lede">Operating in Dar es Salaam and beyond since 2022 — a registered wholesaler and licensed scrap metal trader.</p>
+    <p class="label">{{ site_text.about_hero_eyebrow|default:"The company" }}</p>
+    <h1>{{ site_text.about_hero_h1|default:"Industrial supplies and engineering, under one roof." }}</h1>
+    <p class="lede">{{ site_text.about_hero_lede|default:"Operating in Dar es Salaam and beyond since 2022 — a registered wholesaler and licensed scrap metal trader." }}</p>
   </div>
 </section>
 
 <section class="section section--bg">
   <div class="wrap split">
     <div class="split-aside" data-reveal>
-      <p class="label">Who we are</p>
+      <p class="label">{{ site_text.about_whoweare_eyebrow|default:"Who we are" }}</p>
       <h2>{{ company.name|default:"Tryvis Investments Limited" }}</h2>
     </div>
     <div data-reveal>
@@ -60,8 +60,8 @@
   <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-1.svg' %}')" aria-hidden="true"></div>
   <div class="wrap section">
     <div class="on-dark sec-head" data-reveal>
-      <p class="label">In short</p>
-      <h2>What the numbers say.</h2>
+      <p class="label">{{ site_text.about_stat_eyebrow|default:"In short" }}</p>
+      <h2>{{ site_text.about_stat_h2|default:"What the numbers say." }}</h2>
     </div>
     <div class="stat-grid" data-reveal>
       {% for stat in stats %}
@@ -79,10 +79,10 @@
 <section class="section cta">
   <div class="wrap">
     <div>
-      <h2>Ready to talk about your project?</h2>
-      <p>Tell us about the part, the job, or the load of scrap — we will take it from there.</p>
+      <h2>{{ site_text.about_cta_h2|default:"Ready to talk about your project?" }}</h2>
+      <p>{{ site_text.about_cta_body|default:"Tell us about the part, the job, or the load of scrap — we will take it from there." }}</p>
     </div>
-    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">Request a quote</a>
+    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">{{ site_text.cta_button_label|default:"Request a quote" }}</a>
   </div>
 </section>
 

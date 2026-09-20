@@ -74,11 +74,14 @@ python manage.py seed_all
 Fills the site with the **client's real content** — nothing invented.
 Company profile, phone numbers, and the full 15-item product/service list
 come from the client's own `about_company.docx` and `WEBSITEE_CONTENTS.docx`
-(see `seed_company.py` for exact wording). Product/service icon photos,
-8 bearing-brand logos, 4 gallery photos and 3 hero slides all come from
-`core/seed_assets/` — real photos and brand logos the client supplied in
-their own document, extracted once and resized for the web. None of it is
-stock photography or AI-generated placeholder art.
+(see `seed_company.py` for exact wording). Every headline, section intro and
+button label across all five pages is seeded too (see `seed_site_text.py`) —
+already editable in /admin/ → Site text from the moment you seed, so there's
+nothing left hardcoded to ask a developer to change later. Product/service
+icon photos, 8 bearing-brand logos, 4 gallery photos and 3 hero slides all
+come from `core/seed_assets/` — real photos and brand logos the client
+supplied in their own document, extracted once and resized for the web.
+None of it is stock photography or AI-generated placeholder art.
 
 **Partner is never touched by this command** — the client manages that
 list themselves in `/admin/`.
@@ -107,18 +110,33 @@ without touching any images.)
 
 ## 3b. Adding content via /admin/
 
+- **Site text** → nearly every headline, intro paragraph and button label
+  on the site (61 entries — hero text on every page, section headings,
+  "How we work" cards, call-to-action blocks, the "Request a quote" button
+  label everywhere it appears). Each row's **Label** column says exactly
+  where on the site it shows up, e.g. "Home — hero headline". Edit the
+  **Current text** and save — the live site updates immediately, no
+  redeploy needed. A few entries (marked in their label) allow a `<b>...</b>`
+  tag for bold emphasis; everything else is plain text. Search box at the
+  top filters by label, key or text, e.g. search "hero" to find every
+  page's hero copy at once.
 - **Company Info** → upload the logo, edit About/Vision/Mission/Values, and
   add every phone number in the inline "Phone numbers" list. The WhatsApp
   number (digits with country code, e.g. `255767644317`) switches on the
   floating WhatsApp button.
+- **Service categories** → the 11 products + 4 services on the Services
+  page. `Kind` controls which of the two lists a row shows in. `Featured`
+  controls whether it also appears on the homepage (and in the footer's
+  Capabilities list) — check exactly the ones you want to headline there.
+- **Brands** → the bearing-brand logo strip on the Services page.
 - **Hero slides** → the cross-fading background images behind the homepage
-  headline. Upload landscape photos, 1920x1080 or wider. Leave this empty and
-  the site falls back to three built-in engineering artworks, so the slider
-  always looks finished.
+  headline. Upload landscape photos, 1920x1080 or wider. Leave this empty
+  and the site falls back to three built-in engineering artworks, so the
+  slider always looks finished.
 - **Stats** → the four proof figures in the dark band (value + label).
-- **Service categories** → the six services on the homepage; edit or add more.
-- **Gallery images** → workshop / fabrication / overhaul photos.
-- **Partners** → the client/partner logos shown in the trust strip.
+- **Gallery images** → workshop / fabrication photos on the "Our work" page.
+- **Partners** → the client/partner logos shown in the trust strip. You
+  manage this list yourself — `seed_all` never touches it.
 - **Contact messages** → submissions from the site's contact form.
 
 ## 4. Run locally

@@ -7,16 +7,16 @@
   <div class="hero-slide" style="background-image:url('{% static 'core/img/slide-1.svg' %}')" aria-hidden="true"></div>
   <div class="wrap">
     <p class="crumb"><a href="{% url 'home' %}">Home</a><i></i><span>Contact</span></p>
-    <p class="label">Get in touch</p>
-    <h1>Tell us what your line needs.</h1>
-    <p class="lede">Parts, a repair, or a full engineering project — send the details and we will come back with a quote.</p>
+    <p class="label">{{ site_text.contact_hero_eyebrow|default:"Get in touch" }}</p>
+    <h1>{{ site_text.contact_hero_h1|default:"Tell us what your line needs." }}</h1>
+    <p class="lede">{{ site_text.contact_hero_lede|default:"Parts, a repair, or a full engineering project — send the details and we will come back with a quote." }}</p>
   </div>
 </section>
 
 <section class="section section--bg">
   <div class="wrap contact-grid">
     <div data-reveal>
-      <p class="label">Contact details</p>
+      <p class="label">{{ site_text.contact_details_eyebrow|default:"Contact details" }}</p>
       <h2>{{ company.name|default:"Tryvis Investments Limited" }}</h2>
 
       <div class="contact-lines">
@@ -64,8 +64,8 @@
 
     <form method="post" class="form" data-reveal>
       {% csrf_token %}
-      <h3>Request a quote</h3>
-      <p>The more detail you send, the faster the quote comes back.</p>
+      <h3>{{ site_text.cta_button_label|default:"Request a quote" }}</h3>
+      <p>{{ site_text.contact_form_intro|default:"The more detail you send, the faster the quote comes back." }}</p>
 
       {% if messages %}
         {% for message in messages %}<p class="form-note">{{ message }}</p>{% endfor %}
